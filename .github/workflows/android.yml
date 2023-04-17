@@ -34,7 +34,7 @@ jobs:
     - uses: dev-drprasad/delete-tag-and-release@v0.2.1
       name: Delete latest alpha tag and release
       with:
-        tag_name: latest
+        tag_name: alpha
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -45,9 +45,9 @@ jobs:
     - uses: ncipollo/release-action@v1.12.0
       name: Create new tag and release and upload artifacts
       with:
-        name: latest
+        name: alpha
         commit: main
-        tag: latest
+        tag: alpha
         artifacts: "alpha.txt,rev-has.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
