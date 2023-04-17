@@ -25,11 +25,11 @@ jobs:
     #- name: Build with Gradle
     #  run: ./gradlew build
     - name: Generate a release file
-      run: echo "That's a release" > app/alpha/alpha.txt
+      run: echo "That's a release" > alpha.txt
       shell: bash
 
     - name: Create hash
-      run: git rev-parse HEAD > app/alpha/rev-hash.txt
+      run: git rev-parse HEAD > rev-hash.txt
 
     - uses: dev-drprasad/delete-tag-and-release@v0.2.1
       name: Delete latest alpha tag and release
@@ -48,6 +48,6 @@ jobs:
         name: latest
         commit: main
         tag: latest
-        artifacts: "app/alpha/alpha.txt,app/alpha/rev-has.txt"
+        artifacts: "alpha.txt,rev-has.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
