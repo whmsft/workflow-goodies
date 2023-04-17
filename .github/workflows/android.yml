@@ -48,6 +48,6 @@ jobs:
         name: alpha
         commit: main
         tag: alpha
-        artifacts: "alpha.txt,rev-has.txt"
+        artifacts: "alpha.txt,rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
