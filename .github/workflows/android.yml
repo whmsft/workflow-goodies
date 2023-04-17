@@ -1,4 +1,4 @@
-name: Build per push
+name: Build Alpha
 
 on:
   push:
