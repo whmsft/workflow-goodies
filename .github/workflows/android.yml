@@ -26,9 +26,11 @@ jobs:
     #- name: Build with Gradle
     #  run: ./gradlew build
     
-    - name: set up npm
-      uses: bahmutov/npm-install@v1
-    
+    - name : setup node
+      uses: actions/setup-node@v3
+      with:
+          node-version: 16
+          
     - name: set up cordova
       run:  npm install -g cordova
     
