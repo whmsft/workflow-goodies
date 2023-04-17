@@ -1,4 +1,4 @@
-name: Android CI
+name: Build per push
 
 on:
   push:
@@ -13,14 +13,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+    #- name: set up JDK 11
+    #  uses: actions/setup-java@v3
+    #  with:
+    #    java-version: '11'
+    #    distribution: 'temurin'
+    #    cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+    #- name: Grant execute permission for gradlew
+    #  run: chmod +x gradlew
+    #- name: Build with Gradle
+    #  run: ./gradlew build
+    - name: Generate a release file
+      run: echo "That's a release" > app/alpha/alpha.txt
+      shell: bash
+
+    - name: Create hash
+      run: git rev-parse HEAD > app/alpha/rev-hash.txt
+
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      name: Delete latest alpha tag and release
+      with:
+        tag_name: latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Sleep for 30 seconds, to allow the tag to be deleted
+      run: sleep 30s    
+      shell: bash
+
+    - uses: ncipollo/release-action@v1.12.0
+      name: Create new tag and release and upload artifacts
+      with:
+        name: latest
+        commit: main
+        tag: latest
+        artifacts: "app/alpha/alpha.txt,app/alpha/rev-has.txt"
+        body: Latest Alpha release on this branch
+        token: ${{ secrets.GITHUB_TOKEN }}
