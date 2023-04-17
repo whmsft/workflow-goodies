@@ -63,6 +63,6 @@ jobs:
         name: alpha
         commit: main
         tag: alpha
-        artifacts: "alpha.txt,rev-hash.txt"
+        artifacts: "alpha.txt,rev-hash.txt,App/platforms/android/app/build/outputs/apk/debug/app-debug.apk"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
