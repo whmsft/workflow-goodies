@@ -20,11 +20,11 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        cache: gradle
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew android:build
+    #    cache: gradle
+    #- name: Grant execute permission for gradlew
+    #  run: chmod +x gradlew
+    #- name: Build with Gradle
+    #  run: ./gradlew build
     
     - name : setup node
       uses: actions/setup-node@v3
@@ -34,14 +34,10 @@ jobs:
     - name: set up cordova
       run:  npm install -g cordova
     
-    - name: create a sample project
-      run: cordova create App && cd App && cordova platform add android && cordova build android
+    - name: Build project
+      run: cd wake && cordova build android
       shell: bash
  # Android shit ends here...
- 
-    - name: Generate a release file
-      run: echo "That's a release" > alpha.txt
-      shell: bash
 
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
@@ -63,6 +59,6 @@ jobs:
         name: alpha
         commit: main
         tag: alpha
-        artifacts: "alpha.txt,rev-hash.txt,App/platforms/android/app/build/outputs/apk/debug/app-debug.apk"
+        artifacts: "wake/platforms/android/app/build/outputs/apk/debug/app-debug.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
