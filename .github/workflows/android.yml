@@ -35,7 +35,7 @@ jobs:
       run:  npm install -g cordova
     
     - name: Build project
-      run: cd wake && cordova add platform android && cordova build android
+      run: cd wake && cordova platform add android && cordova build android
       shell: bash
  # Android shit ends here...
 
