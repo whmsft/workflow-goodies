@@ -19,7 +19,7 @@ jobs:
       run: git clone --recurse-submodules --depth 1 https://github.com/love2d/love-android
       shell: bash
     - name : copy folders to cloned repo
-      run: cp -R src/ love-android/app/src/embed/assets
+      run: cp -R src/ love-android/app/src/ && cd love-android/app/src && tree
       shell: bash
 
 # Android shit starts here...    
