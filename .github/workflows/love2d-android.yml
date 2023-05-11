@@ -62,7 +62,9 @@ jobs:
       shell: bash
 
     - uses: ncipollo/release-action@v1.12.0
-      name: Create new tag and release and upload artifact      with:        name: alpha
+      name: Create new tag and release and upload artifact      
+      with:        
+        name: alpha
         commit: main
         tag: alpha
         prerelease: true
