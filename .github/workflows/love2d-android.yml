@@ -68,7 +68,7 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "love-android/app/build/outputs/apk/embedNoRecordDebug/, rev-hash.txt"
+        artifacts: "love-android/app/build/outputs/apk/embedNoRecord/debug/app-embed-noRecord-debug.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Sleep for 5 seconds, to allow the tag to be deleted (why?
