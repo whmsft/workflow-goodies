@@ -32,7 +32,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: cd love-android && chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew assembleEmbedNoRecord
+      run: cd love-android && ./gradlew assembleEmbedNoRecord
     
           #    - name : setup node
           #      uses: actions/setup-node@v3
