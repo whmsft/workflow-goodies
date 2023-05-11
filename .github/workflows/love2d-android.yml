@@ -68,6 +68,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "platforms/android/app/build/outputs/apk/debug/app-debug.apk, rev-hash.txt"
+        artifacts: "love-android/app/build/outputs/apk/embedDebug.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
