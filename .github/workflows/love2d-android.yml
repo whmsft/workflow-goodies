@@ -62,12 +62,15 @@ jobs:
       shell: bash
 
     - uses: ncipollo/release-action@v1.12.0
-      name: Create new tag and release and upload artifacts
-      with:
-        name: alpha
+      name: Create new tag and release and upload artifact      with:        name: alpha
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "love-android/app/build/outputs/apk/embedDebug.apk, rev-hash.txt"
+        artifacts: "love-android/app/build/outputs/apk/embedNoRecordDebug/, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Sleep for 5 seconds, to allow the tag to be deleted (why?
+
+
+      run: cd love-android/app/build/outputs/apk/ && ls && tree
+      shell: bash
