@@ -14,6 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+
     - name: clone love2d-android
       #      run: ./get_love2d_android.py
       run: git clone --recurse-submodules --depth 1 https://github.com/love2d/love-android
@@ -29,6 +30,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
     - name: Grant execute permission for gradlew
       run: cd love-android && chmod +x gradlew
     - name: Build with Gradle
