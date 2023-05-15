@@ -11,6 +11,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  love.graphics.rectangle("fill", 0 ,0, widthWindow, heightWindow)
 	love.graphics.setColor(0.25, 0.25, 0.25)
 	love.graphics.rectangle("fill", 10, 10, widthWindow-20, heightWindow-20, 20, 20)
 	love.graphics.setColor(1, 1, 1)
