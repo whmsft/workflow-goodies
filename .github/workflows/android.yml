@@ -20,7 +20,13 @@ jobs:
       with:
         java-version: '18'
         distribution: 'temurin'
-    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+    - name: setup-android-tools
+      uses: maxim-lobanov/setup-android-tools@v1
+      with:
+        packages: ndk;19.2.5345600
+          
           #    - name : setup node
           #      uses: actions/setup-node@v3
           #      with:
@@ -33,10 +39,10 @@ jobs:
           #      run: ls && cordova platform add android && cordova build android
           #      shell: bash
     - name: clone someone's work
-      run: git clone https://github.com/branlix3000/raylib_android_starterpack.git
+      run: git clone https://github.com/DeexCoding/android-native-raylib-example/
       shell: bash
     - name: run others work
-      run: cd raylib_android_starterpack && ./start.sh
+      run: cd android-native-raylib-example/ && ./a.cmd
       shell: bash
     - name: what's done!
       run: tree
