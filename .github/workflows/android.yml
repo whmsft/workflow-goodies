@@ -1,0 +1,69 @@
+name: Build Alpha
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+# Android shit starts here...    
+    - name: set up JDK 18
+      uses: actions/setup-java@v3
+      with:
+        java-version: '18'
+        distribution: 'temurin'
+    
+          #    - name : setup node
+          #      uses: actions/setup-node@v3
+          #      with:
+          #          node-version: 16
+          #      
+          #      - name: set up cordova
+          #      run:  npm install -g cordova
+          #    
+          #    - name: Build project
+          #      run: ls && cordova platform add android && cordova build android
+          #      shell: bash
+    - name: clone someone's work
+      run: git clone https://github.com/branlix3000/raylib_android_starterpack.git
+      shell: bash
+    - name: run others work
+      run: cd raylib_android_starterpack && ./start.sh
+      shell: bash
+    - name: what's done!
+      run: tree
+      shell: bash
+ # Android shit ends here...
+
+    - name: Create hash
+      run: git rev-parse HEAD > rev-hash.txt
+
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      name: Delete latest alpha tag and release
+      with:
+        tag_name: alpha
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Sleep for 5 seconds, to allow the tag to be deleted (why?)
+      run: sleep 5s    
+      shell: bash
+
+    - uses: ncipollo/release-action@v1.12.0
+      name: Create new tag and release and upload artifact      
+      with:        
+        name: alpha
+        commit: main
+        tag: alpha
+        prerelease: true
+        artifacts: "love-android/app/build/outputs/apk/embedNoRecord/debug/app-embed-noRecord-debug.apk, rev-hash.txt"
+        body: Latest Alpha release on this branch
+        token: ${{ secrets.GITHUB_TOKEN }}
