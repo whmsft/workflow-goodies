@@ -38,13 +38,10 @@ jobs:
           #    - name: Build project
           #      run: ls && cordova platform add android && cordova build android
           #      shell: bash
-    - name: clone someone's work
-      run: git clone https://github.com/SethArchambault/VibrantHarvest.git
+    - name: Run build.py
+      run: python3 build.py
       shell: bash
-    - name: run others work
-      run: cd VibrantHarvest/android/ && chmod +x ./build.sh && ./build.sh
-      shell: bash
-    - name: what's done!
+    - name: Tree
       run: tree
       shell: bash
  # Android shit ends here...
