@@ -30,6 +30,9 @@ print(" -- android ndk--")
 os.system('curl --silent "https://dl.google.com/android/repository/android-ndk-r25c-linux.zip" > ndk.zip')
 os.system("unzip ndk.zip -d android/ && mv android/android-ndk-r25c android/ndk")
 
+os.system('curl --silent "https://dl.google.com/android/repository/build-tools_r29.0.3-linux.zip" > bt.zip')
+os.system("unzip bt.zip -d android/sdk/build-tools/ && mv android/sdk/build-tools/android-10 android/sdk/build-tools/29.0.3/")
+
 print(" -- clone raylib --")
 os.system("git clone https://github.com/raysan5/raylib --depth 1")
 
