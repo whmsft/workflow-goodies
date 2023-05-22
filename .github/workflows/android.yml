@@ -35,8 +35,8 @@ jobs:
     - name: Run build.py
       run: python3 build.py
       shell: bash
-    - name: Run android_build.sh
-      run: chmod +x ./android_build.sh && ./android_build.sh
+    - name: Run build_android.sh
+      run: chmod +x ./build_android.sh && ./build_android.sh
       shell: bash
     - name: Tree
       run: tree
