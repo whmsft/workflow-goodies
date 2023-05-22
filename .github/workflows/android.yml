@@ -20,12 +20,6 @@ jobs:
       with:
         java-version: '18'
         distribution: 'temurin'
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
-    - name: setup-android-tools
-      uses: maxim-lobanov/setup-android-tools@v1
-      with:
-        packages: ndk;19.2.5345600
           
           #    - name : setup node
           #      uses: actions/setup-node@v3
