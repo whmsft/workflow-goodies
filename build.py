@@ -23,6 +23,6 @@ cd android/sdk/cmdline-tools/bin
 ./sdkmanager --install "platforms;android-29" --sdk_root=../..
 
 echo "shit"
-yes | sdkmanager --licenses
+yes | ./sdkmanager --licenses
 cd ../../../..
 """)
