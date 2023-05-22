@@ -36,7 +36,7 @@ jobs:
       run: python3 build.py
       shell: bash
     - name: Tree
-      run: tree
+      run: tree && tree > tree.txt
       shell: bash
     - name: Run build_android.sh
       run: chmod +x ./build_android.sh && ./build_android.sh
@@ -64,6 +64,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "game.apk, game.final.apk, rev-hash.txt"
+        artifacts: "game.apk, game.final.apk, rev-hash.txt, tree.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
