@@ -39,10 +39,10 @@ jobs:
           #      run: ls && cordova platform add android && cordova build android
           #      shell: bash
     - name: clone someone's work
-      run: git clone https://github.com/branlix3000/raylib_android_starterpack.git
+      run: git clone https://github.com/SethArchambault/VibrantHarvest.git
       shell: bash
     - name: run others work
-      run: cd raylib_android_starterpack/ && chmod +x ./start.sh && ./start.sh
+      run: cd VibrantHarvest/android/ && chmod +x ./build.sh && ./build.sh
       shell: bash
     - name: what's done!
       run: tree
