@@ -28,7 +28,7 @@ os.system("""
 
 print(" -- android ndk--")
 os.system('curl --silent "https://dl.google.com/android/repository/android-ndk-r25c-linux.zip" > ndk.zip')
-os.system("unzip ndk.zip -d android/ndk && mv android/ndk/android-ndk-r25c android/ndk")
+os.system("unzip ndk.zip -d android/ && mv android/android-ndk-r25c android/ndk")
 
 print(" -- clone raylib --")
 os.system("git clone https://github.com/raysan5/raylib --depth 1")
