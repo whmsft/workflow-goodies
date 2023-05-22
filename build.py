@@ -23,3 +23,4 @@ cd android/sdk/cmdline-tools/bin
 ./sdkmanager --install "platforms;android-29" --sdk_root=../..
 cd ../../../..
 """)
+os.system("yes | ./sdkmanager --licenses")
