@@ -35,11 +35,11 @@ jobs:
     - name: Run build.py
       run: python3 build.py
       shell: bash
-    - name: Run build_android.sh
-      run: chmod +x ./build_android.sh && ./build_android.sh
-      shell: bash
     - name: Tree
       run: tree
+      shell: bash
+    - name: Run build_android.sh
+      run: chmod +x ./build_android.sh && ./build_android.sh
       shell: bash
  # Android shit ends here...
 
