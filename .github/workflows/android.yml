@@ -38,11 +38,6 @@ jobs:
     - name: Tree
       run: tree && tree > tree.txt
       shell: bash
-    - name: Run build_android.sh
-      run: chmod +x ./build_android.sh && ./build_android.sh
-      shell: bash
- # Android shit ends here...
-
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
 
@@ -67,3 +62,7 @@ jobs:
         artifacts: "game.apk, game.final.apk, rev-hash.txt, tree.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run build_android.sh
+      run: chmod +x ./build_android.sh && ./build_android.sh
+      shell: bash
+ # Android shit ends here
