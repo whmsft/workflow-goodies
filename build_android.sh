@@ -31,6 +31,8 @@ cp assets/icon_xhdpi.png android/build/res/drawable-xhdpi/icon.png
 # Copy other assets
 cp assets/* android/build/assets
 
+
+
 # ______________________________________________________________________________
 #
 #  Compile
@@ -100,8 +102,8 @@ $BUILD_TOOLS/dx --verbose --dex --output=android/build/dex/classes.dex android/b
 $BUILD_TOOLS/aapt package -f \
 	-M android/build/AndroidManifest.xml -S android/build/res -A assets \
 	-I android/sdk/platforms/android-29/android.jar -F game.apk android/build/dex
-
 # Add libraries to APK
+$BUILD_TOOLS/aapt add android/build/AndroidManifest.xml game.apk
 cd android/build
 for ABI in $ABIS; do
 	../../$BUILD_TOOLS/aapt add ../../game.apk lib/$ABI/libmain.so
