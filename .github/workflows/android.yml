@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -42,7 +42,7 @@ jobs:
       run: git clone https://github.com/DeexCoding/android-native-raylib-example/
       shell: bash
     - name: run others work
-      run: cd android-native-raylib-example/ && ./a.cmd
+      run: cd android-native-raylib-example/ && chmod +x ./a.cmd && ./a.cmd
       shell: bash
     - name: what's done!
       run: tree
