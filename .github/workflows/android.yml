@@ -35,6 +35,9 @@ jobs:
     - name: Run build.py
       run: python3 build.py
       shell: bash
+    - name: Run android_build.sh
+      run: chmod +x ./android_build.sh && ./android_build.sh
+      shell: bash
     - name: Tree
       run: tree
       shell: bash
@@ -61,6 +64,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "love-android/app/build/outputs/apk/embedNoRecord/debug/app-embed-noRecord-debug.apk, rev-hash.txt"
+        artifacts: "game.apk, game.final.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
