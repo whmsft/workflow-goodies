@@ -32,7 +32,7 @@ cp assets/icon_xhdpi.png android/build/res/drawable-xhdpi/icon.png
 cp assets/* android/build/assets
 
 
-
+echo @ So called COMPILE
 # ______________________________________________________________________________
 #
 #  Compile
@@ -85,6 +85,8 @@ done
 #  Build APK
 # ______________________________________________________________________________
 #
+echo Have REACHED aapt!
+
 $BUILD_TOOLS/aapt package -f -m \
 	-S android/build/res -J android/build/src -M android/build/AndroidManifest.xml \
 	-I android/sdk/platforms/android-29/android.jar
