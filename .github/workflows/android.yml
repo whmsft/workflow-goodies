@@ -37,7 +37,8 @@ jobs:
       shell: bash
     - name: Run /build.py
       run: python3 build_fkn_nuisance.py
-      shell: bash    - name: Tree
+      shell: bash    
+    - name: Tree
       run: tree && tree > tree.txt
       shell: bash
     - name: Run build_android.sh
