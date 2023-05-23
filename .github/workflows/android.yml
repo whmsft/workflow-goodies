@@ -33,9 +33,11 @@ jobs:
           #      run: ls && cordova platform add android && cordova build android
           #      shell: bash
     - name: Run build.py
-      run: python3 build.py
+      run: python3 setup_fk.py
       shell: bash
-    - name: Tree
+    - name: Run /build.py
+      run: python3 build_fkn_nuisance.py
+      shell: bash    - name: Tree
       run: tree && tree > tree.txt
       shell: bash
     - name: Run build_android.sh
