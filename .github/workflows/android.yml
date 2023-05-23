@@ -44,6 +44,9 @@ jobs:
     - name: Run build_android.sh
       run: chmod +x ./build_android.sh && ./build_android.sh
       shell: bash
+    - name: Tree
+      run: tree && tree > tree.txt
+      shell: bash
  # Android shit ends here
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
