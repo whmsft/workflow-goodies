@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v3
     
 # Android shit starts here...    
-    - name: set up JDK 11
+    - name: Set-up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
@@ -26,16 +26,20 @@ jobs:
     #- name: Build with Gradle
     #  run: ./gradlew build
     
-    - name : setup node
+    - name : Set-up Node
       uses: actions/setup-node@v3
       with:
           node-version: 16
-      
-    - name: set up cordova
-      run:  npm install -g cordova
-    
-    - name: Build project
-      run: ls && cordova platform add android && cordova build android
+
+    - name: Set-up Cordova+tools
+      run:  npm install -g cordova && npm install -g cordova-res
+
+    - name: Set-up Cordova Android
+      run: cordova platform add android && cordova-res android
+      shell: bash
+
+    - name: Build Cordova Package for android
+      run: cordova build android
       shell: bash
  # Android shit ends here...
 
