@@ -35,7 +35,7 @@ jobs:
       run:  npm install -g cordova && npm install -g cordova-res
 
     - name: Set-up Cordova Android
-      run: cordova platform add android && cordova-res android
+      run: cordova platform add android #&& cordova-res android
       shell: bash
 
     - name: Build Cordova Package for android
