@@ -9,6 +9,7 @@
     <allow-intent href="http://*/*" />
 	<allow-intent href="https://*/*" />
 	<preference name="SplashScreenDelay" value="-1" />
+	<preference name="Fullscreen" value="true"/>
 	<platform name="android">
 	  <icon background="res/icon/android/ldpi-background.png" density="ldpi" foreground="res/icon/android/ldpi-foreground.png" />
 	  <icon background="res/icon/android/mdpi-background.png" density="mdpi" foreground="res/icon/android/mdpi-foreground.png" />
