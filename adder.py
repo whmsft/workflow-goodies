@@ -1,5 +1,5 @@
 import os, time
-token = open("./SECRET").read()
+token = str(os.environ["TOKEN"])
 os.system(f'git clone https://whmsft:{token}@github.com/whmsft/whmsft.github.io.git')
 index_html = 1
 print("Fyne til now.")
