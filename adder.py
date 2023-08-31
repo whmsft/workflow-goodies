@@ -1,8 +1,6 @@
 import os, time
-token = str(os.environ["TOKEN"])
-os.system(f'git clone https://whmsft:{token}@github.com/whmsft/whmsft.github.io.git')
+os.system(f'git clone https://whmsft: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@github.com/whmsft/whmsft.github.io.git')
 index_html = 1
-print("Fyne til now.")
 while True:
 	print(f'Loop #{index_html}')
 	open("./whmsft.github.io/index.html", "w+").writelines(str(index_html))
