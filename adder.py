@@ -1,5 +1,4 @@
 import os, time
-print(os.environ)
 token = str(os.environ["TOKEN"])
 os.system(f'git clone https://whmsft:{token}@github.com/whmsft/whmsft.github.io.git')
 index_html = 1
