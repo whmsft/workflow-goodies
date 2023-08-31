@@ -6,8 +6,6 @@ index_html = 1
 while True:
 	print(f'Loop #{index_html}')
 	open("./whmsft.github.io/index.html", "w+").writelines(str(index_html))
-	os.system(f'git add .')
-	os.system(f'git commit -m "Automated Response"')
-	os.system(f'git push')
+	os.system(f'cd whmsft.github.io && git add . && git commit -m "Automated Response" && git push && cd ..')
 	index_html = index_html+1
 	time.sleep(30)
