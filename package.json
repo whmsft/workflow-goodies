@@ -1,8 +1,8 @@
 {
-  "name": "uk.whmsft.vechten",
-  "displayName": "vech10",
-  "version": "0.0.8",
-  "description": "Hark! Stand forth and shield the Noble king, and valiantly repel those who dare challenge his majesty.",
+  "name": "uk.whmsft.ruincastle",
+  "displayName": "Ruin Castle",
+  "version": "0.0.1",
+  "description": "Ruin the Enemy, Ruin the Castle",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
