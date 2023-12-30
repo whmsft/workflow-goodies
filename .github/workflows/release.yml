@@ -28,13 +28,15 @@ jobs:
     - name: Process and copy icons (windows)
       if: matrix.os == 'windows-latest'
       run: |
+        cp ./popup/_assets/icon.ico ./popup/_assets/dome-circle.ico
         cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
-        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
-        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
+        windres ./popup/_assets/icon.rc -O coff -o ./dome/assets/icon32.res
+        windres ./popup/_assets/icon.rc -O coff -o ./dome/assets/icon64.res
 
     - name: Process and copy icons (linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
+        cp ./popup/_assets/icon.ico ./popup/_assets/dome-circle.ico
         cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
         objcopy -I binary -O elf32-i386 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon32.res
         objcopy -I binary -O elf64-x86-64 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon64.res
