@@ -28,7 +28,7 @@ jobs:
         choco install make
         choco install sdl2
         choco install mingw
-        export PATH=$PATH:/c/tools/mingw64/bin
+        #export PATH=$PATH:/c/tools/mingw64/bin
 
     - name: Clone dome repository
       run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
@@ -36,8 +36,14 @@ jobs:
     - name: Process and copy icons
       run: |
         cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
-        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
-        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
+        if [ "${{ matrix.os }}" == "windows-latest" ]; then
+          windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
+          windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
+        fi
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          objcopy -I binary -O elf32-i386 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon32.res
+          objcopy -I binary -O elf64-x86-64 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon64.res
+        fi
 
     - name: Build dome
       run: make -C ./dome/
@@ -76,4 +82,3 @@ jobs:
           ./dome/popup-linux
           ./dome/popup-x86.exe
           ./dome/popup-x64.exe
-
