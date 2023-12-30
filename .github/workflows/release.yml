@@ -13,8 +13,8 @@ jobs:
         os: [windows-latest, ubuntu-latest]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
 
     - name: Set up C environment
       if: matrix.os == 'ubuntu-latest'
@@ -22,13 +22,18 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential libsdl2-dev
 
-    - name: Set up Windows environment
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install make -y
-        choco install sdl2 -y
-        choco install mingw -y
-        #export PATH=$PATH:/c/tools/mingw64/bin
+    - name: Choco help
+      uses: crazy-max/ghaction-chocolatey@v3
+      with:
+        args: install make sdl2 mingw
+
+#    - name: Set up Windows environment
+#      if: matrix.os == 'windows-latest'
+#      run: |
+#        choco install make --yes
+#        choco install sdl2 --yes
+#        choco install mingw --yes
+#        export PATH=$PATH:/c/tools/mingw64/bin
 
     - name: Clone dome repository
       run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
@@ -63,25 +68,30 @@ jobs:
           fi
         fi
 
-    - name: Create pre-release
-      run: |
-        TAG_NAME=alpha
-        if [ -n "alpha" ]; then
-          git tag -d alpha
-          git push origin :refs/tags/alpha
-        fi
-        git tag -a -m "Release Alpha" "alpha"
-        git push origin alpha
-
-
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      name: Delete latest alpha tag and release
       with:
-        name: dome-executables
-        path: |
+        tag_name: alpha
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Sleep for 5 seconds, to allow the tag to be deleted (why?)
+      run: sleep 5s    
+      shell: bash
+
+    - uses: ncipollo/release-action@v1.12.0
+      name: Create new tag and release and upload artifacts
+      with:
+        name: alpha
+        commit: main
+        tag: alpha
+        prerelease: true
+        artifacts: |
           ./dome/dome
           ./dome/dome-x32.exe
           ./dome/dome-x64.exe
           ./dome/popup-linux
           ./dome/popup-x86.exe
           ./dome/popup-x64.exe
+        body: Latest Alpha release on this branch
+        token: ${{ secrets.GITHUB_TOKEN }}
