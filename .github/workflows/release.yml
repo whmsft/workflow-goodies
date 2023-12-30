@@ -22,46 +22,37 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential libsdl2-dev
 
-#    - name: Set up Windows environment
-#      if: matrix.os == 'windows-latest'
-#      run: |
-#        choco install make --yes
-#        choco install sdl2 --yes
-#        choco install mingw --yes
-#        export PATH=$PATH:/c/tools/mingw64/bin
-
     - name: Clone dome repository
       run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
 
-    - name: Process and copy icons
+    - name: Process and copy icons (windows)
+      if: matrix.os == 'windows-latest'
       run: |
         cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
-        if [ "${{ matrix.os }}" == "windows-latest" ]; then
-          windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
-          windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
-        fi
-        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-          objcopy -I binary -O elf32-i386 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon32.res
-          objcopy -I binary -O elf64-x86-64 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon64.res
-        fi
+        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
+        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
 
-    - name: Build dome
+    - name: Process and copy icons (linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
+        objcopy -I binary -O elf32-i386 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon32.res
+        objcopy -I binary -O elf64-x86-64 -B i386 ./popup/_assets/icon.ico ./dome/assets/icon64.res
+
+    - name: Build DOME
       run: make -C ./dome/
 
-    - name: Run dome
+    - name: Use DOME (Linux)
+      if: matrix.os == 'ubuntu-latest'
       run: |
-        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-          ./dome/dome nest ./popup/
-          ./dome/dome fuse game.egg popup-linux
-        elif [ "${{ matrix.os }}" == "windows-latest" ]; then
-          if [ "${{ matrix.arch }}" == "x64" ]; then
-            ./dome/dome-x64.exe nest ./popup/
-            ./dome/dome-x64.exe fuse game.egg popup-x64.exe
-          else
-            ./dome/dome-x32.exe nest ./popup/
-            ./dome/dome-x32.exe fuse game.egg popup-x86.exe
-          fi
-        fi
+        ./dome/dome nest ./popup/
+        ./dome/dome fuse game.egg popup-linux
+    
+    - name: Use DOME (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |  
+        ./dome/dome-x64.exe nest ./popup/
+        ./dome/dome-x64.exe fuse game.egg popup-x64.exe
 
     - uses: dev-drprasad/delete-tag-and-release@v0.2.1
       name: Delete latest alpha tag and release
@@ -83,10 +74,8 @@ jobs:
         prerelease: true
         artifacts: |
           ./dome/dome
-          ./dome/dome-x32.exe
           ./dome/dome-x64.exe
           ./dome/popup-linux
-          ./dome/popup-x86.exe
           ./dome/popup-x64.exe
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
