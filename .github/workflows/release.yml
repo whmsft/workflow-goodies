@@ -65,10 +65,9 @@ jobs:
 
     - name: Create pre-release
       run: |
-        TAG_NAME=$(git describe --tags --abbrev=0)
-        git tag -d $TAG_NAME
-        git push origin :refs/tags/$TAG_NAME
-        git tag -a -m "Release Canary Channel" "alpha"
+        git tag -d alpha
+        git push origin :refs/tags/alpha
+        git tag -a -m "Release Alpha Channel" "alpha"
         git push origin alpha
 
     - name: Upload artifacts
