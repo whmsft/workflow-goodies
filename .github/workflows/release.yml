@@ -68,8 +68,8 @@ jobs:
         TAG_NAME=$(git describe --tags --abbrev=0)
         git tag -d $TAG_NAME
         git push origin :refs/tags/$TAG_NAME
-        git tag -a -m "Release Canary Channel" "canary-channel"
-        git push origin canary-channel
+        git tag -a -m "Release Canary Channel" "alpha"
+        git push origin alpha
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
