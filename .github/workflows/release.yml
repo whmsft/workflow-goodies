@@ -31,8 +31,6 @@ jobs:
 
     - name: Set up Windows environment
       run: |
-        # Install MinGW
-        choco install mingw -y
         $env:PATH += ";C:\tools\mingw64\bin"
 
     - name: Clone dome repository
