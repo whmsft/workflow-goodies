@@ -22,12 +22,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential libsdl2-dev
 
-    - name: Download SDL2 (Windows)
+    - name: Set up SDL2 for windows
       if: matrix.os == 'windows-latest'
-      uses: albin-johansson/download-sdl2@latest
+      uses: libsdl-org/setup-sdl@main
+      id: sdl
       with:
-        sources_destination: .
-        binaries_destination: bin
+        version: sdl2-latest
 
     - name: Clone dome repository
       run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
