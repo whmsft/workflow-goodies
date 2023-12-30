@@ -1,0 +1,79 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up C environment
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libsdl2-dev
+
+    - name: Set up Windows environment
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install make
+        choco install sdl2
+        choco install mingw
+        export PATH=$PATH:/c/tools/mingw64/bin
+
+    - name: Clone dome repository
+      run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
+
+    - name: Process and copy icons
+      run: |
+        cp ./popup/_assets/icon.ico ./dome/assets/dome-circle.ico
+        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon32.res
+        windres ./popup/_assets/icon.ico -O coff -o ./dome/assets/icon64.res
+
+    - name: Build dome
+      run: make -C ./dome/
+
+    - name: Run dome
+      run: |
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          ./dome/dome nest ./popup/
+          ./dome/dome fuse game.egg popup-linux
+        elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+          if [ "${{ matrix.arch }}" == "x64" ]; then
+            ./dome/dome-x64.exe nest ./popup/
+            ./dome/dome-x64.exe fuse game.egg popup-x64.exe
+          else
+            ./dome/dome-x32.exe nest ./popup/
+            ./dome/dome-x32.exe fuse game.egg popup-x86.exe
+          fi
+        fi
+
+    - name: Create pre-release
+      run: |
+        TAG_NAME=$(git describe --tags --abbrev=0)
+        git tag -d $TAG_NAME
+        git push origin :refs/tags/$TAG_NAME
+        git tag -a -m "Release Canary Channel" "canary-channel"
+        git push origin canary-channel
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dome-executables
+        path: |
+          ./dome/dome
+          ./dome/dome-x32.exe
+          ./dome/dome-x64.exe
+          ./dome/popup-linux
+          ./dome/popup-x86.exe
+          ./dome/popup-x64.exe
+
