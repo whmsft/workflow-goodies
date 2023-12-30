@@ -29,6 +29,22 @@ jobs:
       with:
         version: sdl2-latest
 
+    - name: Set up Windows environment
+      run: |
+        # Download and install make
+        Invoke-WebRequest -Uri https://ftp.gnu.org/gnu/make/make-4.3.0-without-guile-w32.zip -OutFile make.zip
+        Expand-Archive -Path make.zip -DestinationPath C:\tools\make
+        $env:PATH += ";C:\tools\make\bin"
+
+        # Download and install SDL2
+        Invoke-WebRequest -Uri https://libsdl.org/release/SDL2-devel-2.0.16-mingw.tar.gz -OutFile sdl2.tar.gz
+        tar -xf sdl2.tar.gz -C C:\tools
+        $env:PATH += ";C:\tools\SDL2-2.0.16\i686-w64-mingw32\bin"
+
+        # Install MinGW
+        choco install mingw -y
+        $env:PATH += ";C:\tools\mingw64\bin"
+
     - name: Clone dome repository
       run: git clone --branch v1.8.2 --depth 1 https://github.com/domeengine/dome ./dome
 
