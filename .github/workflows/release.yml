@@ -30,7 +30,10 @@ jobs:
         version: sdl2-latest
 
     - name: Set up Windows environment
+      if: matrix.os == 'windows-latest'
       run: |
+        # Install MinGW
+        choco install mingw -y
         $env:PATH += ";C:\tools\mingw64\bin"
 
     - name: Clone dome repository
