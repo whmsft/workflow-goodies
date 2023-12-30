@@ -25,9 +25,9 @@ jobs:
     - name: Set up Windows environment
       if: matrix.os == 'windows-latest'
       run: |
-        choco install make
-        choco install sdl2
-        choco install mingw
+        choco install make -y
+        choco install sdl2 -y
+        choco install mingw -y
         #export PATH=$PATH:/c/tools/mingw64/bin
 
     - name: Clone dome repository
@@ -63,12 +63,16 @@ jobs:
           fi
         fi
 
-    - name: Create pre-release
-      run: |
-        git tag -d alpha
-        git push origin :refs/tags/alpha
-        git tag -a -m "Release Alpha Channel" "alpha"
-        git push origin alpha
+      - name: Create pre-release
+        run: |
+          TAG_NAME=alpha
+          if [ -n "alpha" ]; then
+            git tag -d alpha
+            git push origin :refs/tags/alpha
+          fi
+          git tag -a -m "Release Alpha" "alpha"
+          git push origin alpha
+
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
