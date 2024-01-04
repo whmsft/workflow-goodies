@@ -52,6 +52,6 @@ jobs:
           commit: main
           tag: alpha
           prerelease: true
-          artifacts: "tic80/build/bin/tic80.exe"
+          artifacts: "tic-80/build/bin/tic80.exe"
           body: Latest build of some shit.
           token: ${{ secrets.GITHUB_TOKEN }}
