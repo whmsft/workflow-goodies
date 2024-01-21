@@ -25,7 +25,7 @@ jobs:
         version: 3.1.30
         actions-cache-folder: 'emsdk-cache'
 
-    - name: Build Game
+    - name: Build with emcc
       run: |
         emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iraylib -L. -Llibraylib -s USE_GLFW=3 -DPLATFORM_WEB
       shell: cmd
