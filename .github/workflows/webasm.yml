@@ -38,6 +38,7 @@ jobs:
 
     - name: Setup Environment
       run: | 
+        cd raylib
         mkdir build
         cd build
         mkdir ${{ env.RELEASE_NAME }}
@@ -48,13 +49,15 @@ jobs:
    
     - name: Build Library
       run: |
+        cd raylib
         cd src
         emcc -v
-        make PLATFORM=PLATFORM_WEB EMSDK_PATH="D:/a/raylib/raylib/emsdk-cache/emsdk-main" RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib" -B
+        make PLATFORM=PLATFORM_WEB EMSDK_PATH="D:/a/workflow-goodies/workflow-goodies/emsdk-cache/emsdk-main" RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib" -B
         cd ..
   
     - name: Generate Artifacts
       run: |
+        cd raylib
         copy /Y .\src\raylib.h .\build\${{ env.RELEASE_NAME }}\include\raylib.h
         copy /Y .\src\raymath.h .\build\${{ env.RELEASE_NAME }}\include\raymath.h
         copy /Y .\src\rlgl.h .\build\${{ env.RELEASE_NAME }}\include\rlgl.h
@@ -87,6 +90,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "./build/${{ env.RELEASE_NAME }}.zip"
+        artifacts: "./raylib/build/${{ env.RELEASE_NAME }}.zip"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
