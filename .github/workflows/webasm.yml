@@ -68,6 +68,11 @@ jobs:
         7z a ./${{ env.RELEASE_NAME }}.zip ./${{ env.RELEASE_NAME }}
         dir
       shell: cmd
+
+    - name: Build Game
+      run: |
+        emcc -o index.html main.c -Os -Wall ./raylib/build/${{ env.RELEASE_NAME }}\lib\libraylib.a -I. -Iraylib\build\${{ env.RELEASE_NAME }}\include\raylib -L. -Lraylib/build/${{ env.RELEASE_NAME }}\lib\libraylib -s USE_GLFW=3 -DPLATFORM_WEB
+      shell: cmd
     
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
@@ -90,6 +95,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "./raylib/build/${{ env.RELEASE_NAME }}.zip"
+        artifacts: "./raylib/build/${{ env.RELEASE_NAME }}.zip, index.html"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
