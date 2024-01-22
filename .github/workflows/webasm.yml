@@ -29,7 +29,13 @@ jobs:
       run: |
         emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iinclude\raylib -L. -Llib\libraylib -s USE_GLFW=3 --shell-file shell.html -DPLATFORM_WEB
       shell: cmd
-    
+
+    - name: Directory listing
+      run: |
+        dir
+        tree
+      shell: cmd
+      
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
 
