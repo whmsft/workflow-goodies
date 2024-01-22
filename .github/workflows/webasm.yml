@@ -25,15 +25,10 @@ jobs:
         version: 3.1.30
         actions-cache-folder: 'emsdk-cache'
 
-    - name: Build with emcc
+    - name: Build and Pack
       run: |
         emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iinclude\raylib -L. -Llib\libraylib -s USE_GLFW=3 --shell-file shell.html -DPLATFORM_WEB
-      shell: cmd
-
-    - name: Directory listing
-      run: |
-        dir
-        tree
+        7z a ./main.zip index.html index.js index.wasm
       shell: cmd
       
     - name: Create hash
@@ -57,6 +52,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "index.html, index.js, index.wasm"
+        artifacts: "main.zip"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
