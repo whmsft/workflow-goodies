@@ -1,4 +1,4 @@
-#include "./include/raylib.h"
+#include "raylib.h"
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
@@ -25,6 +25,6 @@ int main(void) {
 void UpdateDrawFrame(void) {
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("Congrats! You created your first window!", 0, 0, 20, LIGHTGRAY);
+        DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
     EndDrawing();
 }
