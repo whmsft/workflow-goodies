@@ -3,8 +3,8 @@
     #include <emscripten/emscripten.h>
 #endif
 
-const int screenWidth = 800;
-const int screenHeight = 450;
+const int screenWidth = 320;
+const int screenHeight = 640;
 
 void UpdateDrawFrame(void);
 
