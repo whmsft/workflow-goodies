@@ -28,8 +28,6 @@ jobs:
     - name: Build with emcc
       run: |
         emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iinclude\raylib -L. -Llib\libraylib -s USE_GLFW=3 --shell-file shell.html -DPLATFORM_WEB
-        echo ;;;;;;;;;;;;;;;;;;;;;;;;
-        tree > tree.txt
       shell: cmd
     
     - name: Create hash
@@ -49,6 +47,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "index.html, tree.txt, rev-hash.txt"
+        artifacts: "index.html"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
