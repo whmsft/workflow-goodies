@@ -27,7 +27,7 @@ jobs:
 
     - name: Build C
       run: |
-        emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iinclude\raylib -L. -Llib\libraylib -s USE_GLFW=3 --shell-file shell.html -DPLATFORM_WEB -s ASYNCIFY
+        emcc -o index.html main.c -Os -Wall .\lib\libraylib.a -I. -Iinclude\raylib -L. -Llib\libraylib -s USE_GLFW=3 --shell-file shell.html -DPLATFORM_WEB
       shell: cmd
 
     - name: Archive files
