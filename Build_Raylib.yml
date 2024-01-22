@@ -71,7 +71,7 @@ jobs:
 
     - name: Build Game
       run: |
-        emcc -o index.html main.c -Os -Wall ./raylib/build/${{ env.RELEASE_NAME }}\lib\libraylib.a -I. -Iraylib\build\${{ env.RELEASE_NAME }}\include\raylib -L. -Lraylib/build/${{ env.RELEASE_NAME }}\lib\libraylib -s USE_GLFW=3 -DPLATFORM_WEB
+        emcc -o index.html main.c -Os -Wall ./raylib/build/${{ env.RELEASE_NAME }}\lib\libraylib.a -I. -Iraylib\build\${{ env.RELEASE_NAME }}\include\raylib -L. -Lraylib/build/${{ env.RELEASE_NAME }}\lib\libraylib -s USE_GLFW=3 -DPLATFORM_WEB 
       shell: cmd
     
     - name: Create hash
@@ -84,10 +84,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Sleep for 5 seconds, to allow the tag to be deleted (why?)
-      run: sleep 5s    
-      shell: bash
-
     - uses: ncipollo/release-action@v1.12.0
       name: Create new tag and release and upload artifacts
       with:
@@ -95,6 +91,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "./raylib/build/${{ env.RELEASE_NAME }}.zip, index.html"
+        artifacts: "./raylib/build/${{ env.RELEASE_NAME }}.zip, index.html, tree.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
