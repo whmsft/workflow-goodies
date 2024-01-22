@@ -57,6 +57,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "index.html"
+        artifacts: "index.html, index.js, index.wasm"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
