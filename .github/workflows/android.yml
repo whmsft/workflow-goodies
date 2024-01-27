@@ -28,7 +28,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Clone Raylib
-      run : git clone https://github.com/raysan5/raylib.git .
+      run : git clone https://github.com/raysan5/raylib.git
       shell: bash
 
     - name: Setup Release Version
@@ -47,7 +47,8 @@ jobs:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: Setup Environment
-      run: | 
+      run: |
+        cd raylib
         mkdir build
         cd build
         mkdir ${{ env.RELEASE_NAME }}
@@ -58,6 +59,7 @@ jobs:
    
     - name: Build Library
       run: |
+        cd raylib
         cd src
         make PLATFORM=PLATFORM_ANDROID ANDROID_ARCH=${{ matrix.ARCH }} ANDROID_API_VERSION=29 ANDROID_NDK=${{ env.ANDROID_NDK_HOME }} RAYLIB_LIBTYPE=STATIC RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib"
         make PLATFORM=PLATFORM_ANDROID ANDROID_ARCH=${{ matrix.ARCH }} ANDROID_API_VERSION=29 ANDROID_NDK=${{ env.ANDROID_NDK_HOME }} RAYLIB_LIBTYPE=SHARED RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib" -B
@@ -66,6 +68,7 @@ jobs:
   
     - name: Generate Artifacts
       run: |
+        cd raylib
         cp -v ./src/raylib.h ./build/${{ env.RELEASE_NAME }}/include
         cp -v ./src/raymath.h ./build/${{ env.RELEASE_NAME }}/include
         cp -v ./src/rlgl.h ./build/${{ env.RELEASE_NAME }}/include
@@ -93,6 +96,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: ${{ env.RELEASE_NAME }}.tar.gz
+        artifacts: raylib/${{ env.RELEASE_NAME }}.tar.gz
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
