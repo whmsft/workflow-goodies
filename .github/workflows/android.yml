@@ -77,7 +77,10 @@ jobs:
         cp -v ./LICENSE ./build/${{ env.RELEASE_NAME }}/LICENSE
         cd build
         tar -czvf ${{ env.RELEASE_NAME }}.tar.gz ${{ env.RELEASE_NAME }}
-        
+
+    - name: Tree
+      run: tree
+    
     - uses: dev-drprasad/delete-tag-and-release@v0.2.1
       name: Delete latest alpha tag and release
       with:
