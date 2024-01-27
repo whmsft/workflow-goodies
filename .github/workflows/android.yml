@@ -14,11 +14,11 @@ jobs:
     permissions:
       contents: write
     runs-on: windows-latest
-#    strategy:
-#      fail-fast: false
-#      max-parallel: 1
-#      matrix:
-#        ARCH: ["arm64", "x86_64"]
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        ARCH: ["arm64", "x86_64"]
           
     env:
       RELEASE_NAME: raylib-dev_android_api29_arm64 #raylib-dev_android_api29_${{ matrix.ARCH }}
