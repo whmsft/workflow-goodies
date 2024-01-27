@@ -89,6 +89,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "game.apk, game.final.apk, rev-hash.txt, tree.txt"
+        artifacts: ${{ env.RELEASE_NAME }}.tar.gz
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
