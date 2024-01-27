@@ -1,4 +1,4 @@
-name: Android
+name: Build Alpha
 
 on:
   push:
@@ -6,81 +6,46 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
   build:
-    permissions:
-      contents: write
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        ARCH: ["arm64", "x86_64"]
-          
-    env:
-      RELEASE_NAME: raylib-dev_android_api29_arm64 #raylib-dev_android_api29_${{ matrix.ARCH }}
-    
+
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-
-    - name: Clone Raylib
-      run : git clone https://github.com/raysan5/raylib.git
-      shell: bash
-
-    - name: Setup Release Version
-      run: |
-        echo "RELEASE_NAME=raylib-${{ github.event.release.tag_name }}_android_api29_${{ matrix.ARCH }}" >> $GITHUB_ENV
-      shell: bash
-      if: github.event_name == 'release' && github.event.action == 'published'
-      
-    - name: Setup Android NDK
-      id: setup-ndk
-      uses: nttld/setup-ndk@v1
-      with:
-        ndk-version: r25
-        add-to-path: false
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
-    - name: Setup Environment
-      run: |
-        cd raylib
-        mkdir build
-        cd build
-        mkdir ${{ env.RELEASE_NAME }}
-        cd ${{ env.RELEASE_NAME }}
-        mkdir include
-        mkdir lib
-        cd ../..
-   
-    - name: Build Library
-      run: |
-        cd raylib
-        cd src
-        make PLATFORM=PLATFORM_ANDROID ANDROID_ARCH=${{ matrix.ARCH }} ANDROID_API_VERSION=29 ANDROID_NDK=${{ env.ANDROID_NDK_HOME }} RAYLIB_LIBTYPE=STATIC RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib"
-        make PLATFORM=PLATFORM_ANDROID ANDROID_ARCH=${{ matrix.ARCH }} ANDROID_API_VERSION=29 ANDROID_NDK=${{ env.ANDROID_NDK_HOME }} RAYLIB_LIBTYPE=SHARED RAYLIB_RELEASE_PATH="../build/${{ env.RELEASE_NAME }}/lib" -B
-        cd ..
-      shell: cmd
-  
-    - name: Generate Artifacts
-      run: |
-        cd raylib
-        cp -v ./src/raylib.h ./build/${{ env.RELEASE_NAME }}/include
-        cp -v ./src/raymath.h ./build/${{ env.RELEASE_NAME }}/include
-        cp -v ./src/rlgl.h ./build/${{ env.RELEASE_NAME }}/include
-        cp -v ./CHANGELOG ./build/${{ env.RELEASE_NAME }}/CHANGELOG
-        cp -v ./README.md ./build/${{ env.RELEASE_NAME }}/README.md
-        cp -v ./LICENSE ./build/${{ env.RELEASE_NAME }}/LICENSE
-        cd build
-        tar -czvf ${{ env.RELEASE_NAME }}.tar.gz ${{ env.RELEASE_NAME }}
-
-    - name: Tree
-      run: tree
+    - uses: actions/checkout@v3
     
+# Android shit starts here...    
+    - name: Set-up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    #    cache: gradle
+    #- name: Grant execute permission for gradlew
+    #  run: chmod +x gradlew
+    #- name: Build with Gradle
+    #  run: ./gradlew build
+    
+    - name : Set-up Node
+      uses: actions/setup-node@v3
+      with:
+          node-version: 16
+
+    - name: Set-up Cordova+tools
+      run:  npm install -g cordova && npm install -g cordova-res
+
+    - name: Set-up Cordova Android
+      run: cordova platform add android #&& cordova-res android
+      shell: bash
+
+    - name: Build Cordova Package for android
+      run: cordova build android
+      shell: bash
+ # Android shit ends here...
+
+    - name: Create hash
+      run: git rev-parse HEAD > rev-hash.txt
+
     - uses: dev-drprasad/delete-tag-and-release@v0.2.1
       name: Delete latest alpha tag and release
       with:
@@ -93,12 +58,12 @@ jobs:
       shell: bash
 
     - uses: ncipollo/release-action@v1.12.0
-      name: Create new tag and release and upload artifact      
-      with:        
+      name: Create new tag and release and upload artifacts
+      with:
         name: alpha
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: ./raylib/build/${{ env.RELEASE_NAME }}.tar.gz
+        artifacts: "platforms/android/app/build/outputs/apk/debug/app-debug.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
