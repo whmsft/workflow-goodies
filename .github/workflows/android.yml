@@ -26,7 +26,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    
+
+    - name: Clone Raylib
+      run : git clone https://github.com/raysan5/raylib.git .
+      shell: bash
+
     - name: Setup Release Version
       run: |
         echo "RELEASE_NAME=raylib-${{ github.event.release.tag_name }}_android_api29_${{ matrix.ARCH }}" >> $GITHUB_ENV
