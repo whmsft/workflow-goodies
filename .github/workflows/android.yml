@@ -96,6 +96,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: ./raylib/${{ env.RELEASE_NAME }}.tar.gz
+        artifacts: ./raylib/build/${{ env.RELEASE_NAME }}.tar.gz
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
