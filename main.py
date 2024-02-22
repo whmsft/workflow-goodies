@@ -23,8 +23,7 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
     for i in range(pages):
         page_name = wikipedia.random(1)
         for page_summary in get_page_summaries(page_name):
-            filename = f"{output_dir}/{page_summary[0]}.txt"
-            filename = filename.replace("/","%2F")
+            filename = f"{output_dir}/{page_summary[0].replace("/","%2F")}.txt"
             filename = filename.replace("\\","%5C")
             filename = filename.replace(":","%3A")
             filename = filename.replace("*","%2A")
