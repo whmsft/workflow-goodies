@@ -35,10 +35,10 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
             filename = filename.replace("|","%7C")
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(page_summary[1])
-            ret.append(filename)
-        time.sleep(1)  # To avoid rate-limiting
+            ret.append(filename) # To avoid rate-limiting
     return ret
 
 article_files = get_random_pages_summary(pages=10000)
 print(f"Saved {len(article_files)} Wikipedia articles.")
-os.system("cd wikipedia_articles/ && 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on archive.7z .")
+os.system("7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on wikipedia_articles/archive.7z wikipedia_articles/.")
+print(article_files)
