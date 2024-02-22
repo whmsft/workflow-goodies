@@ -19,8 +19,11 @@ jobs:
         python-version: '3.10'
     - run: pip install wikipedia
 
-    - name: Access 10000 articles
+    - name: Access articles
       run: python main.py
+
+    - name: 7z files
+      run: 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on wikipedia_articles/archive.7z wikipedia_articles/.
 
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
