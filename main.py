@@ -39,6 +39,6 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
         time.sleep(1)  # To avoid rate-limiting
     return ret
 
-article_files = get_random_pages_summary(pages=10)
+article_files = get_random_pages_summary(pages=10000)
 print(f"Saved {len(article_files)} Wikipedia articles.")
 os.system("cd wikipedia_articles/ && 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on archive.7z .")
