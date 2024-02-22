@@ -5,6 +5,7 @@ import wikipedia
 nos=0
 
 def get_page_summaries(page_name):
+    global nos
     nos=nos+1
     try:
       print(f"Retrieving Article #{nos} \"{page_name}\"")
@@ -21,6 +22,15 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
     for i in range(pages):
         page_name = wikipedia.random(1)
         for page_summary in get_page_summaries(page_name):
+            filename.replace("/","%2F")
+            filename.replace("\\","%5C")
+            filename.replace(":","%3A")
+            filename.replace("*","%2A")
+            filename.replace("?","%3F")
+            filename.replace("\"","%22")
+            filename.replace("<","%3C")
+            filename.replace(">","%3E")
+            filename.replace("|","%7C")
             filename = f"{output_dir}/{page_summary[0]}.txt"
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(page_summary[1])
