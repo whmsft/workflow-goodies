@@ -2,8 +2,14 @@ import os
 import time
 import wikipedia
 
+nos=0
+
 def get_page_summaries(page_name):
-    print(f"Retrieving Article \"{page_name}\"")
+    nos=nos+1
+    try:
+      print(f"Retrieving Article #{nos} \"{page_name}\"")
+    except:
+      print(f"Retrieving Article #{nos}")
     try:
         return [[page_name, wikipedia.page(page_name).content]]
     except wikipedia.exceptions.DisambiguationError as e:
