@@ -13,8 +13,9 @@ def get_page_summaries(page_name):
       print(f"Retrieving Article #{nos}")
     try:
         return [[page_name, wikipedia.page(page_name).content]]
-    except wikipedia.exceptions.DisambiguationError as e:
-        return [[p, wikipedia.page(p).content] for p in e.options]
+    except:
+        print("Caught error")
+        return []
 
 def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
     os.makedirs(output_dir, exist_ok=True)
