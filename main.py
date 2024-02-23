@@ -39,5 +39,5 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
             ret.append(filename)
     return ret
 
-article_files = get_random_pages_summary(pages=10000)
+article_files = get_random_pages_summary(pages=100000)
 print(f"Saved {len(article_files)} Wikipedia articles.")
