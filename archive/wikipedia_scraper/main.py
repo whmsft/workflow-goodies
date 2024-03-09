@@ -23,7 +23,7 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
     for i in range(pages):
         page_name = wikipedia.random(1)
         for page_summary in get_page_summaries(page_name):
-            filename = f"{output_dir}/{page_summary[0]}.txt"
+            filename = page_summary[0]
             filename = filename.replace("/","%2F")
             filename = filename.replace("\\","%5C")
             filename = filename.replace(":","%3A")
@@ -33,12 +33,11 @@ def get_random_pages_summary(pages=10000, output_dir="wikipedia_articles"):
             filename = filename.replace("<","%3C")
             filename = filename.replace(">","%3E")
             filename = filename.replace("|","%7C")
+            filename = f"{output_dir}/{filename}.txt"
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(page_summary[1])
             ret.append(filename)
-        time.sleep(1)  # To avoid rate-limiting
     return ret
 
-article_files = get_random_pages_summary(pages=10000)
+article_files = get_random_pages_summary(pages=100000)
 print(f"Saved {len(article_files)} Wikipedia articles.")
-os.system("cd wikipedia_articles/ && 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on archive.7z .")
