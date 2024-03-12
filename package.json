@@ -1,7 +1,7 @@
 {
   "name": "uk.whmsft.experiment",
   "displayName": "Experiment",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Automated GitHub Workflow to bundle Cordova for Android",
   "main": "index.js",
   "scripts": {
