@@ -1,8 +1,8 @@
 {
-  "name": "uk.whmsft.experiment",
-  "displayName": "Experiment",
-  "version": "0.0.1",
-  "description": "Automated GitHub Workflow to bundle Cordova for Android",
+  "name": "uk.whmsft.ruincastle",
+  "displayName": "Ruin Castle",
+  "version": "1.0.0",
+  "description": "A tiny game about destroying castles",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +11,5 @@
     "ecosystem:cordova"
   ],
   "author": "whmsft",
-  "license": "GNU GPLv3"
+  "license": "MIT"
 }
