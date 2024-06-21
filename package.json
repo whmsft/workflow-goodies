@@ -3,7 +3,7 @@
   "displayName": "Experiment",
   "version": "0.0.1",
   "description": "Automated GitHub Workflow to bundle Cordova for Android",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
