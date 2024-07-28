@@ -58,6 +58,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "sample, sample.html, rev-hash.txt"
+        artifacts: "sample, sample.html, sample.js, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
