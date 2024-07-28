@@ -17,7 +17,10 @@ jobs:
     - uses: jiro4989/setup-nim-action@v2
       with:
         nim-version: '2.0.2'
-#        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
     - name: Install Nico
       run: "nimble refresh && nimble install nico"
@@ -30,6 +33,9 @@ jobs:
 
     - name: Build for Web with Emscripten
       run: nimble webr
+
+    - name: Build for Android
+      run: nimble androidr
 
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
@@ -52,6 +58,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "platforms/android/app/build/outputs/apk/debug/app-debug.apk, rev-hash.txt"
+        artifacts: "sample, sample.html, sample.apk, rev-hash.txt"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
