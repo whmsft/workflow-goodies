@@ -19,8 +19,11 @@ jobs:
         nim-version: '2.0.2'
 #        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install Nico & Run Nicoboot
-      run: nimble install nico & nicoboot whmsft sample . -f
+    - name: Install Nico
+      run: nimble install nico
+
+    - name: Initialize nicoboot
+      run: nicoboot whmsft sample . -f
 
     - name: Build for ubuntu-latest
       run: nimble release
