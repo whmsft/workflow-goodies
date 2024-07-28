@@ -20,8 +20,7 @@ jobs:
 #        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Install Nico
-      run: nimble refresh
-      #run: nimble install nico --yes -y 
+      run: "nimble refresh && nimble install nico"
 
     - name: Initialize nicoboot
       run: nicoboot whmsft sample . -f
