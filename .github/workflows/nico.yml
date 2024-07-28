@@ -34,8 +34,8 @@ jobs:
     - name: Build for Web with Emscripten
       run: nimble webr
 
-    - name: tree
-      run: tree
+    - name: 7z Files
+      run: 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on webbuild.7z ./sample.*
 #    - name: Build for Android
 #      run: nimble androidr
 
