@@ -4,6 +4,7 @@
 #endif
 
 int screenWidth, screenHeight, playerX;
+int tick=0;
 bool playerAbove;
 
 void UpdateDrawFrame(void);
@@ -26,15 +27,21 @@ int main(void) {
 }
 
 void UpdateDrawFrame(void) {
+  if (tick==1) playerX = ((screenWidth/2)-screenWidth/20)+screenWidth/40;
   screenWidth = GetScreenWidth();
   screenHeight = GetScreenHeight();
+  if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) {
+    if (GetMouseX()>screenWidth/2 || GetTouchX()>screenWidth/2)playerX+=2;
+    if (GetMouseX()<screenWidth/2 || GetTouchX()<screenWidth/2)playerX-=2;
+  }
   BeginDrawing();
     ClearBackground(WHITE);
     DrawRectangle(0, screenHeight/2, screenWidth, screenHeight/2, BLACK);
     DrawRectangle(screenWidth/4, screenHeight/2,screenWidth/2, screenWidth/20, WHITE);
     DrawRectangle(screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/20, BLACK);
-    DrawRectangle(playerX, playerX, screenWidth/20, screenWidth/20, BLACK);
+    DrawRectangle(playerX, screenHeight/2-screenWidth/10, screenWidth/20, screenWidth/20, BLACK);
     DrawText(TextFormat("Screen Width: %d", screenWidth), 10, 10, 20, DARKGRAY);
     DrawText(TextFormat("Screen Height: %d", screenHeight), 10, 40, 20, DARKGRAY);
   EndDrawing();
+  tick++;
 }
