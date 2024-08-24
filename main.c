@@ -39,8 +39,8 @@ void UpdateDraw(void) {
   screenHeight = GetScreenHeight();
   fallVelocity += playerAbove?1:-1;
   if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) {
-    if ((GetMouseX() > screenWidth/2 || GetTouchX() > screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
-    if ((GetMouseX() < screenWidth/2 || GetTouchX() < screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
+    if ((GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
+    if ((GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
   }
   if (IsKeyDown(KEY_RIGHT) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
   if (IsKeyDown(KEY_LEFT) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
@@ -61,10 +61,8 @@ void UpdateDraw(void) {
     DrawText(TextFormat("%ix%i",screenWidth,screenHeight),10, 10, 20, SECONDARY);
     DrawText(TextFormat("Mouse X: %i", GetMouseX()), 10, 40, 20, SECONDARY);
     DrawText(TextFormat("Touch X: %i", GetTouchX()), 10, 70, 20, SECONDARY);
-    for (int i = 0; i < GetTouchPointCount(); i++) {
-      Vector2 touchPosition = GetTouchPosition(i);
-      DrawText(TextFormat("Touch %i: (%.0f, %.0f)", i, touchPosition.x, touchPosition.y), 10, 100 + i * 20, 20, DARKGRAY);
-    }
+    DrawText(TextFormat("%s",((GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10))?"true":"false"),10,100,20,SECONDARY);
+    DrawText(TextFormat("%s",(IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP))?"true":"false"),10,130,20,SECONDARY);
   EndDrawing();
   tick++;
 }
