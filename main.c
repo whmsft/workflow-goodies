@@ -11,16 +11,8 @@ Color SECONDARY = BLACK;
 Color PLAYER = BLACK;
 void UpdateDraw(void);
 
-bool collide(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-  return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1 <= y2 + h2 && y1 + h1 >= y2);
-}
-bool collideSideways(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-  if (playerAbove) {
-    return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1-1 <= y2 + h2 && y1-1 + h1 >= y2);
-  } else {
-    return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1+1 <= y2 + h2 && y1+1 + h1 >= y2);
-  }
-}
+bool collide(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1 <= y2 + h2 && y1 + h1 >= y2);}
+bool collideSideways(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {if (playerAbove) {return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1-1 <= y2 + h2 && y1-1 + h1 >= y2);} else {return (x1 <= x2 + w2 && x1 + w1 >= x2 && y1+1 <= y2 + h2 && y1+1 + h1 >= y2);}}
 
 int main(void) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -66,7 +58,13 @@ void UpdateDraw(void) {
     DrawRectangle(screenWidth/4, screenHeight/2, screenWidth/2, screenWidth/20, PRIMARY);
     DrawRectangle(screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/20, SECONDARY);
     DrawRectangle(playerX, playerY, screenWidth/20, screenWidth/20, PLAYER);
-    DrawText("v1", 10, 10, 20, SECONDARY);
+    DrawText(TextFormat("%ix%i",screenWidth,screenHeight),10, 10, 20, SECONDARY);
+    DrawText(TextFormat("Mouse X: %i", GetMouseX()), 10, 40, 20, SECONDARY);
+    DrawText(TextFormat("Touch X: %i", GetTouchX()), 10, 70, 20, SECONDARY);
+    for (int i = 0; i < GetTouchPointCount(); i++) {
+      Vector2 touchPosition = GetTouchPosition(i);
+      DrawText(TextFormat("Touch %i: (%.0f, %.0f)", i, touchPosition.x, touchPosition.y), 10, 100 + i * 20, 20, DARKGRAY);
+    }
   EndDrawing();
   tick++;
 }
