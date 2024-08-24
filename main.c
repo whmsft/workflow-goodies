@@ -66,7 +66,7 @@ void UpdateDraw(void) {
     DrawRectangle(screenWidth/4, screenHeight/2, screenWidth/2, screenWidth/20, PRIMARY);
     DrawRectangle(screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/20, SECONDARY);
     DrawRectangle(playerX, playerY, screenWidth/20, screenWidth/20, PLAYER);
-    DrawText(TextFormat("fallVelocity: %d", fallVelocity), 10, 10, 20, SECONDARY);
+    DrawText("v1", 10, 10, 20, SECONDARY);
   EndDrawing();
   tick++;
 }
