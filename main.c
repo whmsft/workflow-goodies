@@ -31,6 +31,7 @@ int main(void) {
 }
 
 void UpdateDraw(void) {
+  bool variable=false;
   if (tick==1) {
     playerX = ((screenWidth/2)-screenWidth/20)+screenWidth/40;
     playerY = screenHeight/3;
@@ -38,10 +39,8 @@ void UpdateDraw(void) {
   screenWidth = GetScreenWidth();
   screenHeight = GetScreenHeight();
   fallVelocity += playerAbove?1:-1;
-  if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) {
-    if ((GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
-    if ((GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
-  }
+  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX+=screenWidth/200; variable = true;}
+  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX-=screenWidth/200; variable = true;}
   if (IsKeyDown(KEY_RIGHT) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
   if (IsKeyDown(KEY_LEFT) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
   if (collide(playerX, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {
@@ -61,8 +60,7 @@ void UpdateDraw(void) {
     DrawText(TextFormat("%ix%i",screenWidth,screenHeight),10, 10, 20, SECONDARY);
     DrawText(TextFormat("Mouse X: %i", GetMouseX()), 10, 40, 20, SECONDARY);
     DrawText(TextFormat("Touch X: %i", GetTouchX()), 10, 70, 20, SECONDARY);
-    DrawText(TextFormat("%s",((GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10))?"true":"false"),10,100,20,SECONDARY);
-    DrawText(TextFormat("%s",(IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP))?"true":"false"),10,130,20,SECONDARY);
+    DrawText(TextFormat("the variable: %s",variable?"true":"false"),10,100,20,SECONDARY);
   EndDrawing();
   tick++;
 }
