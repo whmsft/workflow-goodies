@@ -16,13 +16,13 @@ bool collideSideways(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 
 int main(void) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(320,640,"strontium");
-  //InitWindow(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), "strontium");
-  //ToggleFullscreen();
   playerAbove = true;
   #if defined(PLATFORM_WEB)
-    emscripten_set_main_loop(UpdateDraw, 0, 1);
+    InitWindow(320,640,"strontium");
+    emscripten_set_main_loop(UpdateDraw, 60, 1);
   #else
+    InitWindow(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), "strontium");
+    ToggleFullscreen();
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
       UpdateDraw();
@@ -42,6 +42,8 @@ void UpdateDraw(void) {
   screenHeight = GetScreenHeight();
   //if (screenWidth>screenHeight) screenWidth=screenHeight/2;
   fallVelocity += playerAbove?1:-1;
+  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX-=screenWidth/200;}
+  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX+=screenWidth/200; variable = true;}
   if (IsKeyDown(KEY_RIGHT) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX+=screenWidth/200;
   if (IsKeyDown(KEY_LEFT) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) playerX-=screenWidth/200;
   if (collide(playerX, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {
@@ -51,8 +53,6 @@ void UpdateDraw(void) {
   PLAYER = (playerY>=screenHeight/2)?WHITE:BLACK;
   playerAbove = (playerY+screenWidth/40<=screenHeight/2);
   playerY += fallVelocity/5;
-  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX+=screenWidth/200; variable = true;}
-  if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX-=screenWidth/200;}
   
   BeginDrawing();
     ClearBackground(WHITE);
