@@ -40,7 +40,7 @@ jobs:
       #      run: 7z a ./main.zip index.html index.js index.wasm
       #      shell: cmd
     
-    - name: List every single file in the project
+    - name: List every file
       run: dir /s /b /o:gn
       shell: cmd
 
@@ -65,6 +65,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "./app/build/apk/release/*.*"
+        artifacts: "./main.zip"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
