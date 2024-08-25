@@ -31,7 +31,7 @@ jobs:
         add-to-path: true
     - name: Build for Android with gradle
       run: |
-        ./gradlew.bat
+        ./gradlew.bat build
       shell: cmd
       env: 
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
