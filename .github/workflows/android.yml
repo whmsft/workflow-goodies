@@ -65,6 +65,6 @@ jobs:
         commit: main
         tag: alpha
         prerelease: true
-        artifacts: "./main.zip"
+        artifacts: "./app/build/apk/release/*.*"
         body: Latest Alpha release on this branch
         token: ${{ secrets.GITHUB_TOKEN }}
