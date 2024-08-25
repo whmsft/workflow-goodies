@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:targetApi="31">
         <activity
-            android:name="Experiment"
+            android:name=".NativeLoader"
 						android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="${APP_ORIENTATION}" android:launchMode="singleTask"
             android:resizeableActivity="false"

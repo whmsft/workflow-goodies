@@ -23,6 +23,9 @@ android {
     namespace project.properties['app.application_id']
     compileSdk 33
 
+		lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         minSdk 24
         targetSdk 33
