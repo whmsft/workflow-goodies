@@ -1,0 +1,70 @@
+name: Android
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 17
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    - uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      with:
+        ndk-version: r21e
+        add-to-path: true
+    - name: Build for Android with gradle
+      run: |
+        ./gradlew.bat
+      shell: cmd
+      env: 
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      #    - name: Archive files
+      #      run: 7z a ./main.zip index.html index.js index.wasm
+      #      shell: cmd
+    
+    - name: List every file
+      run: tree
+      shell: cmd
+
+    - name: Create hash
+      run: git rev-parse HEAD > rev-hash.txt
+
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      name: Delete latest alpha tag and release
+      with:
+        tag_name: alpha
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Sleep for 5 seconds, to allow the tag to be deleted (why?)
+      run: sleep 5s    
+      shell: bash
+
+    - uses: ncipollo/release-action@v1.12.0
+      name: Create new tag and release and upload artifacts
+      with:
+        name: alpha
+        commit: main
+        tag: alpha
+        prerelease: true
+        artifacts: "./main.zip"
+        body: Latest Alpha release on this branch
+        token: ${{ secrets.GITHUB_TOKEN }}
