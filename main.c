@@ -20,7 +20,7 @@ int main(void) {
   //ToggleFullscreen();
   playerAbove = true;
   #if defined(PLATFORM_WEB)
-    emscripten_set_main_loop(UpdateDraw, 60, 1);
+    emscripten_set_main_loop(UpdateDraw, 0, 1);
   #else
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
