@@ -16,7 +16,8 @@ bool collideSideways(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 
 int main(void) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), "strontium");
+	InitWindow(320,640,"strontium");
+  //InitWindow(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), "strontium");
   //ToggleFullscreen();
   playerAbove = true;
   #if defined(PLATFORM_WEB)
