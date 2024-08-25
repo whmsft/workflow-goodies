@@ -40,8 +40,8 @@ jobs:
       #      run: 7z a ./main.zip index.html index.js index.wasm
       #      shell: cmd
     
-    - name: List built file
-      run: cd build/outputs/apk/release && dir
+    - name: List every single file in the project
+      run: dir /s /b /o:gn
       shell: cmd
 
     - name: Create hash
