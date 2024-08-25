@@ -16,7 +16,8 @@ bool collideSideways(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 
 int main(void) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(320, 640, "strontium");
+  InitWindow(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()), "strontium");
+  ToggleFullscreen();
   playerAbove = true;
   #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDraw, 60, 1);
@@ -38,6 +39,7 @@ void UpdateDraw(void) {
   }
   screenWidth = GetScreenWidth();
   screenHeight = GetScreenHeight();
+  //if (screenWidth>screenHeight) screenWidth=screenHeight/2;
   fallVelocity += playerAbove?1:-1;
   if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() >= screenWidth/2 || GetTouchX() >= screenWidth/2) && !collideSideways(playerX+screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX+=screenWidth/200; variable = true;}
   if ((IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsGestureDetected(GESTURE_TAP)) && (GetMouseX() <= screenWidth/2 || GetTouchX() <= screenWidth/2) && !collideSideways(playerX-screenWidth/200, playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10)) {playerX-=screenWidth/200; variable = true;}
