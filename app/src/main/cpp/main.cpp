@@ -36,7 +36,7 @@ int main(void) {
     InitWindow(320, 640, "strontium");
     emscripten_set_main_loop(UpdateDraw, 0, 1);
   #else
-    InitWindow(320, 640, "strontium");
+    InitWindow(GetMonitorWidth(), GetMonitorHeight(), "strontium");
     SetTargetFPS(30);
     ToggleFullscreen();
     while (!WindowShouldClose()) {
