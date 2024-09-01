@@ -38,6 +38,7 @@ int main(void) {
   #else
     InitWindow(320, 640, "strontium");
     SetTargetFPS(30);
+    ToggleFullscreen();
     while (!WindowShouldClose()) {
       UpdateDraw();
     }
