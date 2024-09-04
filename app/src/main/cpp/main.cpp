@@ -59,7 +59,7 @@ void UpdateDraw(void) {
     moveSpeed = screenWidth / 100;
   }
 
-  fallVelocity += playerAbove ? screenWidth/20 : -screenWidth/20;
+  fallVelocity += playerAbove ? screenWidth/40 : -screenWidth/40;
 
   // Collision with platform
   if (collide(playerX, playerY, screenWidth / 20, screenWidth / 20, screenWidth / 4, screenHeight / 2 - screenWidth / 20, screenWidth / 2, screenWidth / 10)) {
