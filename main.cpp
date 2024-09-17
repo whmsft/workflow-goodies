@@ -83,7 +83,7 @@ void UpdateDraw(void) {
     DrawText(TextFormat("Highscore: %i",HIGHSCORE),screenWidth/2-MeasureText(TextFormat("Highscore: %i",HIGHSCORE),8*(screenWidth/100))/2,0.75*screenHeight+screenWidth/10+screenHeight/2-otherVariables[2],8*(screenWidth/100),PRIMARY);
     DrawText("a game by whmsft",screenWidth/2-MeasureText("a game by whmsft",8*(screenWidth/100))/2,screenHeight-8*(screenWidth/100)-screenWidth/20,8*(screenWidth/100),PRIMARY);
     EndDrawing();
-    if ((otherVariables[2]==screenHeight/2)&& collide(GetMouseX(), GetMouseY(), 1, 1, 0, screenHeight/2, screenWidth, screenHeight/2) && (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))) otherVariables[3]=1;
+    if ((otherVariables[2]==screenHeight/2)&& (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || IsGestureDetected(GESTURE_TAP))) otherVariables[3]=1;
     if (otherVariables[3]==1 && objectsAbove.size()==0 && objectsBelow.size()==0) {
       SCREEN = 1;
       objectsAbove.clear();
@@ -169,7 +169,7 @@ void UpdateDraw(void) {
     DrawText("Click anywhere",screenWidth/2-MeasureText("Click anywhere",screenWidth/10)/2,0.75*screenHeight,screenWidth/10,(playerY >= screenHeight / 2) ? SECONDARY : PRIMARY);
     DrawText(TextFormat("Score: %i",SCORE),5*(screenWidth/100),5*(screenWidth/100),10*(screenWidth/100),(playerY >= screenHeight / 2) ? SECONDARY : PRIMARY);
     EndDrawing();
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) otherVariables[1]=1;
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || IsGestureDetected(GESTURE_TAP)) otherVariables[1]=1;
     if (otherVariables[0]>screenWidth/4) otherVariables[0]-=screenWidth/10;
     if (otherVariables[1]==1) otherVariables[0]-=screenWidth/20;
     if (otherVariables[0]<screenWidth/20) {SCREEN=0;otherVariables[0]=0;otherVariables[1]=0;}
