@@ -56,7 +56,7 @@ void UpdateDraw(void) {
   if (SCREEN == 0) {
     BeginDrawing();
     ClearBackground(WHITE);
-    DrawRectangle(0,screenHeight-otherVariables[2],screenWidth,screenHeight/2,SECONDARY);
+    DrawRectangle(0,screenHeight-otherVariables[2],screenWidth,screenHeight,SECONDARY);
     if (otherVariables[2]<screenHeight/2){otherVariables[2]+=screenWidth/20;} else {otherVariables[2]=screenHeight/2;}
     if (otherVariables[2]==screenHeight/2) {
       if (objectsAboveCooldown == 0 && otherVariables[3]==0) {
