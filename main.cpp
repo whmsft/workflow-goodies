@@ -161,6 +161,13 @@ void UpdateDraw(void) {
     if (playerAboveLastFrame!=playerAbove) SCORE++;
     playerAboveLastFrame=playerAbove;   
   } else if (SCREEN == 2) {
+    ClearBackground(WHITE);
+    DrawRectangle(0, screenHeight / 2, screenWidth, screenHeight / 2, SECONDARY);
+    DrawRectangle(playerX, playerY, screenWidth / 20, screenWidth / 20, PLAYER);
+    for (auto i = 0; i < objectsBelow.size(); ) {auto& object = objectsBelow[i];DrawRectangle(object[0], object[1], screenWidth / 20, screenWidth / 20, PRIMARY);}
+    for (auto i = 0; i < objectsAbove.size(); ) {auto& object = objectsAbove[i];DrawRectangle(object[0], object[1], screenWidth / 20, screenWidth / 20, SECONDARY);}
+    DrawRectangle(screenWidth / 4, screenHeight / 2, screenWidth / 2, screenWidth / 20, PRIMARY);
+    DrawRectangle(screenWidth / 4, screenHeight / 2 - screenWidth / 20, screenWidth / 2, screenWidth / 20, SECONDARY);
     DrawRing(Vector2{playerX+screenWidth/40.0f,playerY+screenWidth/40.0f}, otherVariables[0], screenHeight, 0.0f, 360.0f, screenHeight, PLAYER);
     DrawText("Click anywhere",screenWidth/2-MeasureText("Click anywhere",screenWidth/10)/2,0.75*screenHeight,screenWidth/10,(playerY >= screenHeight / 2) ? SECONDARY : PRIMARY);
     DrawText(TextFormat("Score: %i",SCORE),5*(screenWidth/100),5*(screenWidth/100),10*(screenWidth/100),(playerY >= screenHeight / 2) ? SECONDARY : PRIMARY);
