@@ -109,7 +109,7 @@ void UpdateDraw(void) {
   
     // Mouse/Touch/Keyboard input
     bool isRightHalf = (GetMouseX() >= screenWidth / 2 || GetTouchX() >= screenWidth / 2);
-    bool isLeftHalf = !(isRightHalf)
+    bool isLeftHalf = !(isRightHalf);
     bool collideRight = collideSideways(playerX-(screenWidth/100), playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10);
     bool collideLeft = collideSideways(playerX+(screenWidth/100), playerY, screenWidth/20, screenWidth/20, screenWidth/4, screenHeight/2-screenWidth/20, screenWidth/2, screenWidth/10);
     if ((((IsGestureDetected(GESTURE_HOLD) || IsMouseButtonDown(MOUSE_LEFT_BUTTON)) && isRightHalf) || IsKeyDown(KEY_RIGHT)) && !collideLeft) {
