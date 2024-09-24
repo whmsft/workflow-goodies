@@ -36,9 +36,6 @@ jobs:
       env: 
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      #    - name: Archive files
-      #      run: 7z a ./main.zip index.html index.js index.wasm
-      #      shell: cmd
   
     - name: Create hash
       run: git rev-parse HEAD > rev-hash.txt
